@@ -1,0 +1,37 @@
+language: python
+sudo: false
+
+python:
+  - "2.7"
+
+services:
+  - docker
+
+virtualenv:
+  system_site_packages: true
+
+git:
+  submodules: true
+
+env:
+  global:
+    - COPR_REPOSITORY=nagios-plugins
+  matrix:
+    - OS=centos DIST=6 OS_DIST=epel OS_ARCH=x86_64
+    - OS=centos DIST=7 OS_DIST=epel OS_ARCH=x86_64
+    - OS=fedora DIST=24 OS_DIST=fedora OS_ARCH=x86_64
+    - OS=fedora DIST=25 OS_DIST=fedora OS_ARCH=x86_64
+
+before_install:
+  - pip install copr-cli simplejson Jinja2
+
+install: false
+
+script:
+  - ${PWD}/packpack/packpack
+#  - if [ -n "$TRAVIS_TAG" ] && [ -n "$OS" ]; then VERSION=${TRAVIS_TAG:1} ${PWD}/packpack/packpack ; fi
+
+after_success:
+  - openssl aes-256-cbc -K $encrypted_0c4caa59ba06_key -iv $encrypted_0c4caa59ba06_iv -in .copr.enc -out .copr -d
+    #  - if [ ! -z "${TRAVIS_TAG}" ]; then copr-cli --config .copr build --nowait -r ${OS_DIST}-${OS_VERSION}-${OS_ARCH} ${COPR_REPOSITORY} build/*.src.rpm; fi
+  - copr-cli --config .copr build --nowait -r ${OS_DIST}-${DIST}-${OS_ARCH} ${COPR_REPOSITORY} build/*.src.rpm
