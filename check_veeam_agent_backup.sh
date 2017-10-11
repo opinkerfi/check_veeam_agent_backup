@@ -19,17 +19,17 @@ output=$(veeamconfig session list --24 |grep Failed |wc -l)
 
 if [ $output -eq 0 ]
 then
-    echo "OK- veeam backup, number of backups with error last 24hrs: $output"
+    echo "OK - Number of backups with error last 24hrs: $output"
     exit 0
 elif [ $output -gt 0 ] && [ $output -le 3 ]
 then
-    echo "WARNING- veeam backup, number of backups with error last 24hrs: $output"
+    echo "WARNING - Number of backups with error last 24hrs: $output"
     exit 1
 elif [ $output -eq 4 ]
 then
-    echo "CRITICAL- veeam backup, number of backups with error last 24hrs: $output"
+    echo "CRITICAL - Number of backups with error last 24hrs: $output"
     exit 2
 else
-    echo "UNKNOWN- veeam backup, number of backups with error last 24hrs: $output"
+    echo "UNKNOWN - Number of backups with error last 24hrs: $output"
     exit 3
 fi

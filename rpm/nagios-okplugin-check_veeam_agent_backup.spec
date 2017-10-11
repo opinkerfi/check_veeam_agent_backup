@@ -2,9 +2,9 @@
 
 Summary:	A Nagios plugin to check if veeam linux agent is backing up
 Name:		nagios-okplugin-check_veeam_agent_backup
-Version:	1.0.1
+Version:	1.0.2
 Release:	1%{?dist}
-License:	GPLv2+
+License:	GPLv3+
 Group:		Applications/System
 URL:		https://github.com/opinkerfi/check_veeam_agent_backup/issues
 Source0:	https://github.com/opinkerfi/check_veeam_agent_backup
@@ -42,8 +42,11 @@ rm -rf %{buildroot}
 
 %post
 restorecon -v %{_libdir}/nagios/plugins/check_veeam_agent_backup.sh
+usermod -a -G veeam nrpe
 
 %changelog
+* Wed Oct 10 2017  Samúel Jón Gunnarsson <samuel@ok.is> 1.0.2-1
+- Removed sudo command dependncy, using veeam group instead.
 * Wed Oct 10 2017  Samúel Jón Gunnarsson <samuel@ok.is> 1.0.1-1
 - Added nrpe.d configuration item for the command
 * Wed Sep 27 2017  Samúel Jón Gunnarsson <samuel@ok.is> 1.0.0-1
