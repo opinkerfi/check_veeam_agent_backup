@@ -46,7 +46,7 @@ usermod -a -G veeam nrpe
 
 %changelog
 * Wed Oct 10 2017  Samúel Jón Gunnarsson <samuel@ok.is> 1.0.2-1
-- Removed sudo command dependncy, using veeam group instead.
+- Removed sudo command dependency, using veeam group instead. Updated README.
 * Wed Oct 10 2017  Samúel Jón Gunnarsson <samuel@ok.is> 1.0.1-1
 - Added nrpe.d configuration item for the command
 * Wed Sep 27 2017  Samúel Jón Gunnarsson <samuel@ok.is> 1.0.0-1
